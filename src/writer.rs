@@ -1,7 +1,11 @@
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
-
+/**
+ * writes matrix and t vector in a square in a text file in format m1 m2 m3 .... mN T1
+ *                                                                 m1 m2 m3 .... mN T2
+ * and ends with q at the end
+ */
 pub fn write_public_key<const N: usize>(matrix: [[i32; N]; N], t_vector: [i32; N], q: i32) {
     let mut fileName = String::new();
     fileName = format!("pub_{N}.mtx");
@@ -24,6 +28,9 @@ pub fn write_public_key<const N: usize>(matrix: [[i32; N]; N], t_vector: [i32; N
         Ok(_) => println!("wrote to {}", display),
     };
 }
+/**
+ * writes the s vector and prime number q on one line in a text file
+ */
 pub fn write_private_key<const N: usize>(secret_vector: [i32; N], q: i32) {
     let mut fileName = String::new();
     fileName = format!("priv_{N}.mtx");

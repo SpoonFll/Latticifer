@@ -10,6 +10,10 @@ fn main() {
     println!("{:?}", matrixPub);
 }
 
+/**
+ * keygen randomly generates matricies with randomly generated numbers based on size N and a prime
+ * number q to do the operations to generate both the public and private keys
+ */
 fn key_gen() {
     let q = 13;
     const N: usize = 256;
