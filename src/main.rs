@@ -1,7 +1,9 @@
 mod keyGen;
+mod reader;
 mod writer;
 fn main() {
     key_gen();
+    reader::readPubKey("pub_256.mtx");
 }
 
 fn key_gen() {
