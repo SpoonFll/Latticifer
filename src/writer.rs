@@ -2,7 +2,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
 
-pub fn write_public_key<const N: usize>(matrix: [[i32; N]; N], t_vector: [i32; N]) {
+pub fn write_public_key<const N: usize>(matrix: [[i32; N]; N], t_vector: [i32; N], q: i32) {
     let mut fileName = String::new();
     fileName = format!("pub_{N}.mtx");
     let path = Path::new(&fileName);
@@ -18,12 +18,13 @@ pub fn write_public_key<const N: usize>(matrix: [[i32; N]; N], t_vector: [i32; N
         }
         to_string = format!("{} {}\n", to_string, t_vector[i]);
     }
+    to_string = format!("{} {}", to_string, q);
     match file.write_all(to_string.as_bytes()) {
         Err(why) => panic!("couldn't write to {}: {}", display, why),
         Ok(_) => println!("wrote to {}", display),
     };
 }
-pub fn write_private_key<const N: usize>(secret_vector: [i32; N]) {
+pub fn write_private_key<const N: usize>(secret_vector: [i32; N], q: i32) {
     let mut fileName = String::new();
     fileName = format!("priv_{N}.mtx");
     let path = Path::new(&fileName);
@@ -38,6 +39,7 @@ pub fn write_private_key<const N: usize>(secret_vector: [i32; N]) {
     for i in 0..N {
         to_string = format!("{} {}", to_string, secret_vector[i]);
     }
+    to_string = format!("{}\n {}", to_string, q);
 
     match file.write_all(to_string.as_bytes()) {
         Err(why) => panic!("couldn't write to {}: {}", display, why),

@@ -3,7 +3,11 @@ mod reader;
 mod writer;
 fn main() {
     key_gen();
-    reader::readPubKey("pub_256.mtx");
+
+    let matrixPub: Vec<Vec<i32>> = reader::readKey("pub_256.mtx");
+    let matrixPriv: Vec<Vec<i32>> = reader::readKey("priv_256.mtx");
+    println!("{:?}", matrixPriv);
+    println!("{:?}", matrixPub);
 }
 
 fn key_gen() {
@@ -14,6 +18,6 @@ fn key_gen() {
     let errorNoise: [i32; N] = keyGen::genNoise(q);
     let tVector = keyGen::modMultiply(q, sVector, matrix);
     let tVector = keyGen::addVectors(errorNoise, tVector);
-    writer::write_public_key(matrix, tVector);
-    writer::write_private_key(sVector);
+    writer::write_public_key(matrix, tVector, q);
+    writer::write_private_key(sVector, q);
 }
