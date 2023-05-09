@@ -2,7 +2,7 @@ use rand::prelude::*;
 /**
  * generates a matrix of noise to add errors to the public key and make the key harder to break
  */
-pub fn genNoise<const N: usize>(q: i32) -> [i32; N] {
+pub fn genNoise<const N: usize>() -> [i32; N] {
     let mut errorNoise = [0i32; N];
     let mut rng = rand::thread_rng();
     for i in 0..N {
